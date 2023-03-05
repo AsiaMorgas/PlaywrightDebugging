@@ -1,0 +1,17 @@
+{
+  "name": "traceviewerexample",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "e2e": "npx playwright test",
+    "test:debug": "PWDEBUG=1 npm run test:e2e",
+    "e2e:db": "npx playwright test --debug"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@playwright/test": "^1.31.0"
+  }
+}

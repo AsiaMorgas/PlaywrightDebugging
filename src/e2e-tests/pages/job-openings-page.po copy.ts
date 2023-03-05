@@ -4,7 +4,7 @@ export class JobOpeningsPage {
 
     readonly jobOpeningsAmount = this.page.locator('.form__group p strong');
     private readonly filterLocationsSelect = this.page.locator('#filter-locations');
-    private readonly jobOpeningItem = this.page.locator('.list li>p').nth(1);
+    private readonly jobOpeningItem = this.page.locator('.list li');
 
     constructor(protected page: Page) { }
 

@@ -5,9 +5,9 @@ export default defineConfig({
 
     /* ------------>  TIMEOUTS <------------ */
     //global timeout: for the whole test run, default is no timeout
-    //globalTimeout: 40000,
+    globalTimeout: 180 * 1000,
     //single test run timeout (overall with before/afterEach hooks), default is 30000 ms
-    //timeout: 20 * 1000,
+    timeout: 30 * 1000,
     //assertion timeout:  default is 5000ms ms
     expect: {
         timeout: 2000
@@ -25,13 +25,13 @@ export default defineConfig({
     use: {
         /* Base URL to use in actions like `await page.goto('/')`. */
         baseURL: 'https://www.backbase.com',
-        headless: false,
+        headless: process.env.CI ? true : false,
         //viewport: null,
         //viewport: {width: 980, height: 500}, //defaults to: 1280 x 720
         screenshot: {mode: 'only-on-failure', fullPage: true}, // on, off, only-on-failure
-        video: 'on', // off, on, retain-on-failure, on-first-retry
+        video: 'off', // off, on, retain-on-failure, on-first-retry
         launchOptions: {
-            slowMo: 200,
+            slowMo: process.env.CI ? 0 : 200,
             //devtools: true,
             // logger: {
             //     isEnabled: () => true,
@@ -41,7 +41,7 @@ export default defineConfig({
             // }
         },
         /* collecting trace always: See https://playwright.dev/docs/trace-viewer */
-        trace: {mode: 'retain-on-failure', screenshots: true, snapshots: true, sources: true},
+        trace: {mode: 'retain-on-failure', screenshots: true, snapshots: true, sources: true}
     },
     /*    projects: [
             {

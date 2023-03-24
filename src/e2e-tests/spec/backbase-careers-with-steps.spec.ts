@@ -27,7 +27,7 @@ test.describe('Backbase Job Openings filtering', async () => {
     });
 
 
-    test.only(`Steps: User can filter Job Openings against "${locationName}" location`,
+    test(`Steps: User can filter Job Openings against "${locationName}" location`,
         async ({page}) => {
             const jobOpeningsPage = new JobOpeningsPage(page);
             let allJobOpeningsListed: Locator[];

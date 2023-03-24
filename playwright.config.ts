@@ -1,20 +1,17 @@
-import {defineConfig} from '@playwright/test';
+import {defineConfig, devices} from '@playwright/test';
 
 export default defineConfig({
-
     testDir: './src/e2e-tests/spec',
 
-    /*---> timeouts <----*/
-
-    /*global timeout: for the whole test run, default is no timeout*/
+    /* ------------>  TIMEOUTS <------------ */
+    //global timeout: for the whole test run, default is no timeout
     //globalTimeout: 40000,
-    /*single test run timeout (overall with before/afterEach hooks), default is 30000 ms*/
+    //single test run timeout (overall with before/afterEach hooks), default is 30000 ms
     //timeout: 20 * 1000,
-    /*assertion timeout:  default is 5000ms ms*/
+    //assertion timeout:  default is 5000ms ms
     expect: {
         timeout: 2000
     },
-
     /* Run tests in files in parallel */
     fullyParallel: false,
     /* Fail the build on CI if you accidentally left test.only in the source code. */
@@ -24,62 +21,49 @@ export default defineConfig({
     /* Opt out of parallel tests on CI. */
     workers: process.env.CI ? 1 : 1,
     /* ------------> REPORTERS <------------ */
-
-    reporter: [["html"], ["allure-playwright"]],
-
-
-    /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
+    reporter: process.env.CI ? [['html'], ['github'], ['line']] : [['html'], ['line']],
     use: {
-        /* Maximum time each action such as `click()` can take. Defaults to 0 (no limit). */
-        actionTimeout: 0,
         /* Base URL to use in actions like `await page.goto('/')`. */
         baseURL: 'https://www.backbase.com',
-        browserName: 'chromium',
-       // bypassCSP: true,
         headless: false,
-        /*browsers: 'chromium','firefox','webkit', defaults to chromium */
         //viewport: null,
-        //viewport: {width: 980, height: 500},
-        screenshot: {mode: 'only-on-failure', fullPage: true},
-        video: 'on',
+        //viewport: {width: 980, height: 500}, //defaults to: 1280 x 720
+        screenshot: {mode: 'only-on-failure', fullPage: true}, // on, off, only-on-failure
+        video: 'on', // off, on, retain-on-failure, on-first-retry
         launchOptions: {
             slowMo: 200,
             //devtools: true,
-            //    logger: {
-            //        isEnabled: () => true,
-            //        log: (name, severity, message, args, hints= {color:'green'}) =>
-            //            console.log(
-            //                `logger name: ${name},severity: ${severity}, msg:  ${message}, `)
-            //    }
+            // logger: {
+            //     isEnabled: () => true,
+            //     log: (name, severity, message, args, hints = {color: 'green'}) =>
+            //         console.log(
+            //             `logger name: ${name},severity: ${severity}, msg:  ${message}, `)
+            // }
         },
         /* collecting trace always: See https://playwright.dev/docs/trace-viewer */
-        trace: {mode: 'on', screenshots: true, snapshots: true, sources: true},
+        trace: {mode: 'retain-on-failure', screenshots: true, snapshots: true, sources: true},
     },
-/*    projects: [
-        {
-            name: 'chromium',
-            use: {
-                ...devices['Desktop Chrome'],
-                viewport: {width: 1980, height: 1020}
+    /*    projects: [
+            {
+                name: 'chromium',
+                use: {
+                    ...devices['Desktop Chrome'],
+                    viewport: {width: 1980, height: 1020}
+                }
+            },
+            {
+                name: 'firefox',
+                use: {
+                    ...devices['Desktop Firefox'],
+                    viewport: null
+                }
+            },
+            {
+                name: 'safari',
+                use: {...devices['Desktop Firefox']}
             }
-        },
-        {
-            name: 'firefox',
-            use: {
-                ...devices['Desktop Firefox'],
-                viewport: null
-            }
-        }
-        // {
-        //   name: 'safari',
-        //   use: { ...devices['Desktop Firefox'] }
-        // },
-        // {
-        //     name: 'mobile chrome',
-        //     use: { ...devices['Pixel 5'] }
-        //   }
-    ], */
-
-    /* Folder for test artifacts such as screenshots, videos, traces, etc. */
+        ],
+    /*
+        /* Folder for test artifacts such as screenshots, videos, traces, etc. */
     outputDir: 'test-results/'
 });

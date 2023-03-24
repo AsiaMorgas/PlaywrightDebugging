@@ -27,7 +27,7 @@ test.describe('Backbase Job Openings filtering', async () => {
     });
 
 
-    test(`Steps: User can filter Job Openings against "${locationName}" location`,
+    test.only(`Steps: User can filter Job Openings against "${locationName}" location`,
         async ({page}) => {
             const jobOpeningsPage = new JobOpeningsPage(page);
             let allJobOpeningsListed: Locator[];
@@ -49,13 +49,13 @@ test.describe('Backbase Job Openings filtering', async () => {
             await test.step('Step: Verify if openings number correct.', async () => {
                 const expectedOpeningsNumber = openingsListLength.toFixed();
                 await expect.soft(displayedNumberLabel, 'Incorrect openings number displayed.')
-                    .toHaveText(`${expectedOpeningsNumber}`);
+                    .toHaveText(`x${expectedOpeningsNumber}`);
             });
 
             await test.step(`Step: Verify if all displayed offers have correct location.`, async () => {
                 for (let i = 0; i < allJobOpeningsListed.length; i++) {
                     const currentRow = allJobOpeningsListed[i];
-                    await expect.soft(currentRow).toContainText(locationName);
+                    await expect.soft(currentRow).toContainText(`${locationName}`);
                 }
             });
 

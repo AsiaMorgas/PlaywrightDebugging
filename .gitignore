@@ -3,5 +3,5 @@ node_modules/
 /playwright-report/
 /playwright/.cache/
 /allure-results/
-/allure-reports/
+/allure-report/
 .idea

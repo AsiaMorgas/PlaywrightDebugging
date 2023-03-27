@@ -21,7 +21,7 @@ export default defineConfig({
     /* Opt out of parallel tests on CI. */
     workers: process.env.CI ? 1 : 1,
     /* ------------> REPORTERS <------------ */
-    reporter: process.env.CI ? [['html'], ['list']] : [['html'], ['list']],
+    reporter: process.env.CI ? [['html'], ['list'], ['github']] : [['html'], ['list']],
     use: {
         /* Base URL to use in actions like `await page.goto('/')`. */
         baseURL: 'https://www.backbase.com',
@@ -62,8 +62,6 @@ export default defineConfig({
                 name: 'safari',
                 use: {...devices['Desktop Firefox']}
             }
-        ],
-    /*
-        /* Folder for test artifacts such as screenshots, videos, traces, etc. */
-    outputDir: 'test-results/'
+        ]
+        */
 });

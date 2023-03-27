@@ -22,3 +22,9 @@ jobs:
           name: playwright-report
           path: playwright-report/
           retention-days: 7
+      - uses: actions/upload-artifact@v3
+        if: ${{failure}}
+        with:
+          name: playwright-traces
+          path: playwright-traces/
+          retention-days: 7

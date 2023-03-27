@@ -13,13 +13,13 @@ export default defineConfig({
         timeout: 2000
     },
     /* Run tests in files in parallel */
-    fullyParallel: false,
+    fullyParallel: true,
     /* Fail the build on CI if you accidentally left test.only in the source code. */
     forbidOnly: !!process.env.CI,
     /* Retry on CI only */
-    retries: process.env.CI ? 1 : 0,
+    retries: process.env.CI ? 0 : 0,
     /* Opt out of parallel tests on CI. */
-    workers: process.env.CI ? 1 : 1,
+    workers: process.env.CI ? 2 : 1,
     /* ------------> REPORTERS <------------ */
     reporter: process.env.CI ? [['html'], ['list'], ['github']] : [['html'], ['list']],
     use: {
@@ -29,10 +29,10 @@ export default defineConfig({
         //viewport: null,
         //viewport: {width: 980, height: 500}, //defaults to: 1280 x 720
         screenshot: {mode: 'only-on-failure', fullPage: true}, // on, off, only-on-failure
-        video: 'off', // off, on, retain-on-failure, on-first-retry
+        video: 'retain-on-failure', // off, on, retain-on-failure, on-first-retry
         launchOptions: {
             slowMo: process.env.CI ? 0 : 200,
-            //devtools: true,
+            // devtools: true,
             // logger: {
             //     isEnabled: () => true,
             //     log: (name, severity, message, args, hints = {color: 'green'}) =>
@@ -54,13 +54,11 @@ export default defineConfig({
             {
                 name: 'firefox',
                 use: {
-                    ...devices['Desktop Firefox'],
-                    viewport: null
-                }
+                    ...devices['Desktop Firefox']}
             },
             {
                 name: 'safari',
-                use: {...devices['Desktop Firefox']}
+                use: {...devices['Desktop Safari']}
             }
         ]
         */
